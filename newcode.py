@@ -78,7 +78,7 @@ class survivor:
         self.feedback = Frame(self.root)
         self.textbox = Message(self.feedback, font=self.X, text="This is working", bd=3, relief="sunken", bg="tan", fg="white").pack(pady=6, fill=X)
         self.feedback.pack(side=BOTTOM, fill=X)
-        #self.TopBar.update_idletasks()
+        self.refresh()
         self.root.mainloop()
 
     #functions for handling the menus
@@ -239,26 +239,33 @@ class survivor:
         hsymb = self.SpecialChar[0]
         tsymb = self.SpecialChar[1]
         prntcount = 1
-        loopr = 'false'
+        loopr = True
         hg = 90
         pc = hg / 10 + 1
         #this loop is a mess it wont work, fix that. unfortunately the fix is increasing the Hunger meter
         #f*ck the above comment, totally got this to work
-        while loopr == 'false':
+        while loopr:
             if self.Hunger > hg:
                 while prntcount <= pc:
                     self.HungerBar = self.HungerBar + hsymb
                     prntcount += 1
                 prntcount = 1
-                loopr = 'true'
+                loopr = False
             hg = hg - 10
             pc = hg / 10 + 1
             self.HungerLabel.config(text=self.HungerBar)
             self.HungerLabel.pack(side=RIGHT)
             self.HungerBar = "Hunger::"  # initialize the var for the next time
-            self.TimeBar = tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb
-            self.TimeLabel.config(text="Time:: " + self.TimeBar)
-            self.TimeLabel.pack(side=LEFT)
 
+        self.TimeBar = tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb
+        self.TimeLabel.config(text="Time:: " + self.TimeBar)
+        self.TimeLabel.pack(side=LEFT)
+
+    def refresh(self):
+        self.TimeBar = self.TimeBar[: -1]
+        if self.TimeBar == '':
+            print 'well shit!'
+        self.TimeLabel.config(text=self.TimeBar)
+        self.root.after(1000, self.refresh)
 
 survivor()
