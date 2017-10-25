@@ -239,23 +239,25 @@ class survivor:
         hsymb = self.SpecialChar[0]
         tsymb = self.SpecialChar[1]
         prntcount = 1
-        loopr = True
         hg = 90
         pc = hg / 10 + 1
+        interrupt = False
         #this loop is a mess it wont work, fix that. unfortunately the fix is increasing the Hunger meter
         #f*ck the above comment, totally got this to work
-        while loopr:
+        while True:
             if self.Hunger > hg:
                 while prntcount <= pc:
                     self.HungerBar = self.HungerBar + hsymb
                     prntcount += 1
                 prntcount = 1
-                loopr = False
+                interrupt = True
             hg = hg - 10
             pc = hg / 10 + 1
             self.HungerLabel.config(text=self.HungerBar)
             self.HungerLabel.pack(side=RIGHT)
             self.HungerBar = "Hunger::"  # initialize the var for the next time
+            if interrupt:
+                break
 
         self.TimeBar = tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb
         self.TimeLabel.config(text="Time:: " + self.TimeBar)
