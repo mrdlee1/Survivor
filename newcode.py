@@ -1,18 +1,4 @@
 from Tkinter import *
-#as of now all on my mind is implemented. next one will be farming i think. 28/7/17
-#Important: starving is not yet implemented
-#ignore that. starving is now implemented. well sort of.
-#as of now, starving is implemented completely.
-#just a note. all the images are 39x38 and exported. then later imported, bitmap traced on 0.0 exposure
-#using edge detection  i think, background removed from the bitmap tracing, grouped and then again exported
-#doubt is on whether or not edge detection is used. most probably it was edge detection.
-#one way to achieve the delay between button presses(Wood collection, fishing etc) is to pack_forget the
-#button and then use the time module to delay it for a few seconds and then pack it again. write up
-#a function for that. something better is to make the function return nothing for 6 seconds and change the button
-#releif to sunken then normal and then raised with an interval of 2 seconds each.
-#U263B and u263a are happy faces.
-#u2665 is a heart. u263c is a sun, u25cb and u25cf are perfect for the hunger bar
-
 
 class survivor:
 
@@ -27,7 +13,6 @@ class survivor:
         self.root.title("Survivor")
         self.Icon = PhotoImage(file=self.Path + "icon.png")
         self.root.call('wm', 'iconphoto', self.root._w, self.Icon)
-        #photos should be here, tried to move it didnt work
         self.Photo1 = PhotoImage(file=self.Path + "sea.png")
         self.Photo2 = PhotoImage(file=self.Path + "shelter.png")
         self.Photo3 = PhotoImage(file=self.Path + "tree.png")
@@ -50,7 +35,6 @@ class survivor:
         self.Raft = 0
         self.Hunger = IntVar()
         self.Hunger = 100
-        #similiar to cmid but with a different purpose and cmid wasnt designed that way
         self.CurrentWindowID = StringVar()
         self.CurrentWindowID = "mainmenu"
         #Hunger & time indicator
@@ -59,10 +43,7 @@ class survivor:
         self.TimeLabel = Label(self.TopBar, font=self.X, text=self.TimeBar, bg="white", fg="gold")  # .pack(side=RIGHT)
         self.hlb()
         self.TopBar.pack(side=TOP, fill=X)
-        #the main program
         self.mainmenu = Frame(self.root)
-        #separate frames for each row of buttons should have used grid but im just gonna brute force pack
-        #until i get the result i want
         topbuttons = Frame(self.mainmenu)
         Button(topbuttons, image=self.Photo10, command=self.farm, bg="wheat").pack(side=LEFT, anchor=E)
         Button(topbuttons, image=self.Photo8, command=self.travel, bg="lightgreen").pack(side=RIGHT, anchor=W)
@@ -74,7 +55,7 @@ class survivor:
         Button(bottombuttons, image=self.Photo1, command=self.sea, bg="lightblue").pack(side=BOTTOM)
         bottombuttons.pack()
         self.mainmenu.pack(fill=BOTH)
-        #the console for giving feedback
+        #the label for giving feedback
         self.feedback = Frame(self.root)
         self.textbox = Message(self.feedback, font=self.X, text="This is working", bd=3, relief="sunken", bg="tan", fg="white").pack(pady=6, fill=X)
         self.feedback.pack(side=BOTTOM, fill=X)
@@ -82,7 +63,6 @@ class survivor:
         self.root.mainloop()
 
     #functions for handling the menus
-    #cmid is short for Current Menu ID. useful for the back button. universal back function sounds good does work
     def back(self, cmid):
         if cmid == "smenu":
             self.storemenu.pack_forget()
@@ -118,7 +98,6 @@ class survivor:
             self.starvemenu.pack()
         self.hlb()
 
-    #store function and menu finished as the last version
     def store(self):
         self.mainmenu.pack_forget()
         self.storemenu = Frame(self.root)
@@ -128,7 +107,6 @@ class survivor:
         Label(self.storemenu, font=self.X, text="Rafts:: " + repr(self.Raft), bg="chocolate", fg="white").pack(pady=5)
         Button(self.storemenu, image=self.Photo6, command=lambda *arg: self.back("smenu"), bg="white").pack(pady=5)
         self.storemenu.pack()
-    #remember to reduce Hunger in these menu operations
     #everything related to forest will follow from here
 
     def Woodcollect(self):
@@ -242,8 +220,6 @@ class survivor:
         hg = 90
         pc = hg / 10 + 1
         interrupt = False
-        #this loop is a mess it wont work, fix that. unfortunately the fix is increasing the Hunger meter
-        #f*ck the above comment, totally got this to work
         while True:
             if self.Hunger > hg:
                 while prntcount <= pc:
