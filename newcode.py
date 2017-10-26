@@ -21,7 +21,8 @@ class survivor:
         self.Path = "/home/m0rd/survivor/Assets/"
         self.X = ("Purisa", 10)
         #array for the unusual characters and symbols
-        self.SpecialChar = [u"\u25cf", u"\u263c"]
+        self.SpecialChar = [u"\u25cf", u"\u263c", u"\u263e"]
+        self.night = False
         self.root = Tk()
         self.root.title("Survivor")
         self.Icon = PhotoImage(file=self.Path + "icon.png")
@@ -41,7 +42,6 @@ class survivor:
         self.HungerBar = StringVar()
         self.HungerBar = "Hunger::"
         self.TimeBar = StringVar()
-        self.TimeBar = "Noon::"
         self.Food = IntVar()
         self.Food = 100
         self.Wood = IntVar()
@@ -259,15 +259,25 @@ class survivor:
             if interrupt:
                 break
 
-        self.TimeBar = tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb + tsymb
+        self.TimeBar = tsymb * 10
         self.TimeLabel.config(text="Time:: " + self.TimeBar)
         self.TimeLabel.pack(side=LEFT)
 
     def refresh(self):
         self.TimeBar = self.TimeBar[: -1]
+        #theres still a bug in here but oh well good progress.
         if self.TimeBar == '':
-            print 'well shit!'
+            if self.night is False:
+                tsymb = self.SpecialChar[1]
+                self.TimeBar = tsymb * 10
+                self.TimeLabel.config(fg='gold')
+                self.night = True
+            else:
+                tsymb = self.SpecialChar[2]
+                self.TimeBar = tsymb * 10
+                self.TimeLabel.config(fg='black')
+                self.night = False
         self.TimeLabel.config(text=self.TimeBar)
-        self.root.after(1000, self.refresh)
+        self.root.after(500, self.refresh)
 
 survivor()
