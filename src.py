@@ -175,8 +175,8 @@ class survivor:
         self.mainmenu.pack_forget()
         self.sheltermenu = Frame(self.root)
         Label(self.sheltermenu, font=self.X, text="Hunger:: " + repr(self.Hunger), bg="chocolate", fg="black").pack()
-        Button(self.sheltermenu, font=self.X, text="Eat", command=self.eat, bg="wheat", fg="black").pack(side=LEFT, anchor=E)
-        Button(self.sheltermenu, font=self.X, text="CRafting", command=self.craft, bg="white", fg="black").pack(side=RIGHT, anchor=W)
+        Button(self.sheltermenu, font=self.X, image=self.Photo5, command=self.eat, bg="wheat").pack(side=LEFT, anchor=E)
+        Button(self.sheltermenu, font=self.X, image=self.Photo12, command=self.craft, bg="palegoldenrod").pack(side=RIGHT, anchor=W)
         Button(self.sheltermenu, image=self.Photo6, command=lambda *arg: self.back("stmenu"), bg="white").pack(side=BOTTOM)
         self.sheltermenu.pack()
     #############################################
