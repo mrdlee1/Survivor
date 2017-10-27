@@ -215,7 +215,6 @@ class survivor:
 
     def hlb(self):
         hsymb = self.SpecialChar[0]
-        tsymb = self.SpecialChar[1]
         prntcount = 1
         hg = 90
         pc = hg / 10 + 1
@@ -235,25 +234,23 @@ class survivor:
             if interrupt:
                 break
 
-        self.TimeBar = tsymb * 10
-        self.TimeLabel.config(text="Time:: " + self.TimeBar)
+        self.TimeBar = ''
         self.TimeLabel.pack(side=LEFT)
 
     def refresh(self):
         self.TimeBar = self.TimeBar[: -1]
-        #theres still a bug in here but oh well good progress.
         if self.TimeBar == '':
             if self.night is False:
                 tsymb = self.SpecialChar[1]
                 self.TimeBar = tsymb * 10
                 self.TimeLabel.config(fg='gold')
                 self.night = True
-            else:
+            elif self.night is True:
                 tsymb = self.SpecialChar[2]
                 self.TimeBar = tsymb * 10
                 self.TimeLabel.config(fg='black')
                 self.night = False
-        self.TimeLabel.config(text=self.TimeBar)
+        self.TimeLabel.config(text="Time::" + self.TimeBar)
         self.root.after(500, self.refresh)
 
 survivor()
