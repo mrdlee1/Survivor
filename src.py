@@ -24,6 +24,7 @@ class survivor:
         self.Photo9 = PhotoImage(file=self.Path + "store.png")
         self.Photo10 = PhotoImage(file=self.Path + "corn.png")
         self.Photo11 = PhotoImage(file=self.Path + "raft.png")
+        self.Photo12 = PhotoImage(file=self.Path + "anvil.png")
         self.HungerBar = StringVar()
         self.HungerBar = "Hunger::"
         self.TimeBar = StringVar()
@@ -79,6 +80,9 @@ class survivor:
         elif cmid == "seamenu":
             self.seamenu.pack_forget()
             self.mainmenu.pack(fill=BOTH)
+        elif cmid == "trmenu":
+            self.map.pack_forget()
+            self.mainmenu.pack(fill=BOTH)
 
     def hungerf(self):
         self.Hunger = self.Hunger - 5
@@ -91,6 +95,8 @@ class survivor:
                 self.craftmenu.pack_forget()
             elif self.CurrentWindowID == "shelter":
                 self.sheltermenu.pack_forget()
+            elif self.CurrentWindowID == "travel":
+                self.map.pack_forget()
             self.starvemenu = Frame(self.root)
             self.CurrentWindowID = "starved"
             Label(self.starvemenu, font=self.X, text="You just starved to death!").pack()
@@ -211,7 +217,14 @@ class survivor:
 
     #travel code
     def travel(self):
-        print "this woooooooooorkd"
+        self.CurrentWindowID = "travel"
+        self.hungerf()
+        self.mainmenu.pack_forget()
+        self.map = Frame(self.root)
+        #the 'map' on which the user can move
+        Message(self.map, text='###- A Place Holder -###', fg='black', bg='gold').pack(fill=X)
+        Button(self.map, image=self.Photo6, command=lambda *arg: self.back("trmenu"), bg="white").pack()
+        self.map.pack(fill=X)
 
     def hlb(self):
         hsymb = self.SpecialChar[0]
