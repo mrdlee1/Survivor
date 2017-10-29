@@ -42,6 +42,7 @@ class survivor:
         self.HungerBar = StringVar()
         self.HungerBar = "Hunger::"
         self.TimeBar = StringVar()
+        self.TimeBar = ''
         self.Food = IntVar()
         self.Food = 100
         self.Wood = IntVar()
@@ -261,7 +262,6 @@ class survivor:
             if interrupt:
                 break
 
-        self.TimeBar = ''
         self.TimeLabel.pack(side=LEFT)
 
     def refresh(self):
