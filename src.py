@@ -238,6 +238,7 @@ class survivor:
         self.map = Frame(self.root)
         #the 'map' on which the user can move
         Message(self.map, text='###- A Place Holder -###', fg='black', bg='gold').pack(fill=X)
+        Button(self.map, text="North.", command=lambda *arg: movement.mapControl().walk('north')).pack()
         Button(self.map, image=self.Photo6, command=lambda *arg: self.back("trmenu"), bg="white").pack()
         self.map.pack(fill=X)
 
