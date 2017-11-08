@@ -19,6 +19,7 @@ class survivor:
 
     def __init__(self):
         #initializing variables
+        self.currentPos = 3 #3 is a placeholder. 12 is center of the grid
         self.Path = "/home/m0rd/survivor/Assets/"
         self.X = ("Purisa", 10)
         #array for the unusual characters and symbols
@@ -239,10 +240,16 @@ class survivor:
         self.map = Frame(self.root)
         #the 'map' on which the user can move
         Message(self.map, text='###- A Place Holder -###', fg='black', bg='gold').pack(fill=X)
-        Button(self.map, text="North.", command=lambda *arg: movement.mapControl().walk('north')).pack()
+        Button(self.map, text="North.", command=lambda *arg: self.movementInterface('north')).pack()
         Button(self.map, image=self.Photo6, command=lambda *arg: self.back("trmenu"), bg="white").pack()
         self.map.pack(fill=X)
+        
+    def movementInterface(self, direction):
+        self.currentPos = movement.mapControl().walk(direction, self.currentPos)
+        if self.currentPos > 0:
+            movement.mapControl().drawmap(self.currentPos)
 
+    #miscellaneous functions
     def hlb(self):
         hsymb = self.SpecialChar[0]
         prntcount = 1
