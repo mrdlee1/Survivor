@@ -16,15 +16,16 @@ from Tkinter import *
 import movement
 
 class survivor:
+    #initializing variables
+    X = ("Purisa", 10)
+    #array for the unusual characters and symbols
+    SpecialChar = [u"\u25cf", u"\u263c", u"\u263e"]
+    Path = "/home/m0rd/survivor/Assets/"
 
     def __init__(self):
-        #initializing variables
-        self.currentPos = 3 #3 is a placeholder. 12 is center of the grid
-        self.Path = "/home/m0rd/survivor/Assets/"
-        self.X = ("Purisa", 10)
-        #array for the unusual characters and symbols
-        self.SpecialChar = [u"\u25cf", u"\u263c", u"\u263e"]
+        self.mapState = movement.mapControl().drawmap(12)
         self.night = False
+        self.currentPos = 12
         self.root = Tk()
         self.root.title("Survivor")
         self.Icon = PhotoImage(file=self.Path + "icon.png")
@@ -41,6 +42,10 @@ class survivor:
         self.Photo10 = PhotoImage(file=self.Path + "corn.png")
         self.Photo11 = PhotoImage(file=self.Path + "raft.png")
         self.Photo12 = PhotoImage(file=self.Path + "anvil.png")
+        self.Photo13 = PhotoImage(file=self.Path + "top.png")
+        self.Photo14 = PhotoImage(file=self.Path + "right.png")
+        self.Photo15 = PhotoImage(file=self.Path + "left.png")
+        self.Photo16 = PhotoImage(file=self.Path + "bottom.png")
         self.HungerBar = StringVar()
         self.HungerBar = "Hunger::"
         self.TimeBar = StringVar()
@@ -239,18 +244,23 @@ class survivor:
         self.mainmenu.pack_forget()
         self.map = Frame(self.root)
         #the 'map' on which the user can move
-        Message(self.map, text='###- A Place Holder -###', fg='black', bg='gold').pack(fill=X)
-        Button(self.map, text="North.", command=lambda *arg: self.movementInterface('north')).pack()
-        Button(self.map, text="East.", command=lambda *arg: self.movementInterface('east')).pack()
-        Button(self.map, text="West.", command=lambda *arg: self.movementInterface('west')).pack()
-        Button(self.map, text="South.", command=lambda *arg: self.movementInterface('south')).pack()
-        Button(self.map, image=self.Photo6, command=lambda *arg: self.back("trmenu"), bg="white").pack()
+        self.renderdMap = Message(self.map, text=self.mapState, fg='black', bg='gold')
+        self.renderdMap.pack(fill=X)
+        mapControlButtons = Frame(self.map)
+        Button(mapControlButtons, image=self.Photo13, command=lambda *arg: self.movementInterface('north'), bg="white").pack(side=TOP)
+        Button(mapControlButtons, image=self.Photo14, command=lambda *arg: self.movementInterface('east'), bg="white").pack(side=RIGHT, anchor=E)
+        Button(mapControlButtons, image=self.Photo15, command=lambda *arg: self.movementInterface('west'), bg="white").pack(side=LEFT, anchor=W)
+        Button(mapControlButtons, image=self.Photo16, command=lambda *arg: self.movementInterface('south'), bg="white").pack(side=BOTTOM)
+        mapControlButtons.pack()
+        Button(self.map, image=self.Photo6, command=lambda *arg: self.back("trmenu"), bg="white").pack(pady=6)
         self.map.pack(fill=X)
+
         
     def movementInterface(self, direction):
         self.currentPos = movement.mapControl().walk(direction, self.currentPos)
         if self.currentPos > 0:
-            movement.mapControl().drawmap(self.currentPos)
+            self.mapState = movement.mapControl().drawmap(self.currentPos)
+            self.renderdMap.config(text=self.mapState)
 
     #miscellaneous functions
     def hlb(self):

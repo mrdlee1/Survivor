@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from os import system
 
 
 class mapControl:
@@ -11,13 +10,14 @@ class mapControl:
             self.mapgrid.append('@')
 
     def drawmap(self, currentPos):
-            system('clear')
             self.mapgrid[currentPos] = '#'
-            print " ".join(map(str, self.mapgrid[0:5]))
-            print " ".join(map(str, self.mapgrid[5:10]))
-            print " ".join(map(str, self.mapgrid[10:15]))
-            print " ".join(map(str, self.mapgrid[15:20]))
-            print " ".join(map(str, self.mapgrid[20:25]))
+            a = " ".join(map(str, self.mapgrid[0:5]))
+            b = " ".join(map(str, self.mapgrid[5:10]))
+            c = " ".join(map(str, self.mapgrid[10:15]))
+            d = " ".join(map(str, self.mapgrid[15:20]))
+            e = " ".join(map(str, self.mapgrid[20:25]))
+            printableMap = a + '\n' + b + '\n' + c + '\n' + d + '\n' + e
+            return printableMap
 
     def walk(self, direction, currentPos):
         if direction == 'north':
