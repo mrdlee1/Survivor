@@ -20,21 +20,27 @@ class mapControl:
             print " ".join(map(str, self.mapgrid[20:25]))
 
     def walk(self, direction, currentPos):
-        error = False
         if direction == 'north':
             if currentPos > 5:
                 currentPos = currentPos - 5
             else:
-                print "Placeholder text."
-                error = True
+                currentPos = currentPos + 20
         elif direction == 'south':
-            currentPos = currentPos + 5
+            if currentPos < 20:
+                currentPos = currentPos + 5
+            else:
+                currentPos = currentPos - 20
         elif direction == 'east':
-            currentPos = currentPos + 1
+            if currentPos in (4, 9, 14, 19, 24):
+                currentPos = currentPos - 4
+            else:
+                currentPos = currentPos + 1
         elif direction == 'west':
-            currentPos = currentPos - 1
-        if error is False:
-            return currentPos
+            if currentPos in (0, 5, 10, 15, 20):
+                currentPos = currentPos + 4
+            else:
+                currentPos = currentPos - 1
+        return currentPos
 
 mapControl()
 

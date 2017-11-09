@@ -241,6 +241,9 @@ class survivor:
         #the 'map' on which the user can move
         Message(self.map, text='###- A Place Holder -###', fg='black', bg='gold').pack(fill=X)
         Button(self.map, text="North.", command=lambda *arg: self.movementInterface('north')).pack()
+        Button(self.map, text="East.", command=lambda *arg: self.movementInterface('east')).pack()
+        Button(self.map, text="West.", command=lambda *arg: self.movementInterface('west')).pack()
+        Button(self.map, text="South.", command=lambda *arg: self.movementInterface('south')).pack()
         Button(self.map, image=self.Photo6, command=lambda *arg: self.back("trmenu"), bg="white").pack()
         self.map.pack(fill=X)
         
